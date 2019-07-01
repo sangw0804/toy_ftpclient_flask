@@ -39,6 +39,13 @@ def main():
 @app.route('/command', methods=['GET'])
 def command():
   arg = request.args['arg']
+  cmd = request.args['cmd']
 
-  client.cwd(arg)
+  if cmd == 'cwd':
+    client.cwd(arg)
+  elif cmd == 'rmdir':
+    client.rmd(arg)
+  elif cmd == 'rm':
+    client.delete(arg)
+
   return redirect('/main')

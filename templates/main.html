@@ -9,9 +9,13 @@
       <div>
         {{ l['desc'] }}
         {% if l['is_d'] %}
-          <a href="command?arg={{ l['name'] }}">{{ l['name'] }}</a>
+          <a href="/command?cmd=cwd&arg={{ l['name'] }}">{{ l['name'] }}</a>
+          {% if l['name'] != '..' %}
+            <a href="/command?cmd=rmdir&arg={{ l['name'] }}">삭제</a>
+          {% endif %}
         {% else %}
           {{ l['name'] }}
+          <a href="/command?cmd=rm&arg={{ l['name'] }}">삭제</a>
         {% endif %}
       </div>
     {% endfor %}
