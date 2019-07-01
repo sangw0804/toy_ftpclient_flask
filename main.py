@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, flash
 import ftplib
 from pathlib import Path
+from helpers.index import ls_trim
 
 app = Flask(__name__)
 app.secret_key = '1234'
@@ -26,15 +27,8 @@ def main():
   pwd = client.pwd()
   ls = ['d back to parent dir ..']
   client.dir(ls.append)
-  ls = map(lambda l: l.split(), ls)
 
-  new_ls = []
-  for l in ls:
-    new_l = {}
-    new_l['is_d'] = (l[0][0] == 'd')
-    new_l['desc'] = ' '.join(l[0:-1])
-    new_l['name'] = l[-1]
-    new_ls.append(new_l)
+  new_ls = ls_trim(ls)
 
   return render_template('main.html', pwd=pwd, ls=new_ls)
 
