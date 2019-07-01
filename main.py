@@ -22,7 +22,7 @@ def login():
 @app.route('/main', methods=['GET'])
 def main():
   pwd = client.pwd()
-  ls = []
+  ls = ['d back to parent dir ..']
   client.dir(ls.append)
   ls = map(lambda l: l.split(), ls)
 
