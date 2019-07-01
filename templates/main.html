@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>FTP Client</title>
+</head>
+<body>
+  <div>
+    {{ pwd }}
+  </div>
+  <div>
+    {% for l in ls %}
+      <div>
+        {{ l['desc'] }}
+        {% if l['is_d'] %}
+          <a href="command?arg={{ l['name'] }}">{{ l['name'] }}</a>
+        {% else %}
+          {{ l['name'] }}
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
