@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 import ftplib
+from pathlib import Path
 
 app = Flask(__name__)
+app.secret_key = '1234'
 client = None
 
 @app.route('/')
@@ -47,5 +49,9 @@ def command():
     client.rmd(arg)
   elif cmd == 'rm':
     client.delete(arg)
+  elif cmd == 'get':
+    with open(f'{Path.home()}/Downloads/{arg}', 'wb') as f:
+      client.retrbinary(f'RETR {arg}', f.write)
+    flash(f'successfully get {arg} at ~/Downloads/')
 
   return redirect('/main')
